@@ -18,19 +18,17 @@ async function run () {
     password: DB_PASSWORD,
     host: DB_HOST,
     port: parseInt(<string><unknown>DB_PORT),
-
-    // Default: false for backwards-compatibility
-    // This might change!
     ensureDatabaseExists: true,
-
-    // Default: "postgres"
-    // Used when checking/creating "database-name"
-    defaultDatabase: "postgres"
+    defaultDatabase: "postgres",
   }
 
-  await migrate(dbConfig, "libs/database/src/lib/migrations")
+  return await migrate(dbConfig, "libs/database/src/lib/migrations")
 }
 
-run().then(() => {
-  console.debug("[MIGRATIONS SUCCESSFULLY RAN]");
+run().then((migrations) => {
+    migrations.forEach(m => {
+        console.log(`${m.fileName} has ran perfect.`);
+    })
+    console.debug("[MIGRATIONS SUCCESSFULLY RAN]");
+    process.exit();
 })

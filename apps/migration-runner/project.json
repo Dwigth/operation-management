@@ -5,14 +5,22 @@
   "projectType": "application",
   "targets": {
     "build": {
-      "executor": "@nrwl/esbuild:esbuild",
+      "executor": "@nrwl/webpack:webpack",
       "outputs": ["{options.outputPath}"],
       "options": {
+        "target": "node",
+        "compiler": "tsc",
         "outputPath": "dist/apps/migration-runner",
-        "format": ["cjs"],
         "main": "apps/migration-runner/src/main.ts",
         "tsConfig": "apps/migration-runner/tsconfig.app.json",
-        "assets": ["apps/migration-runner/src/assets"]
+        "webpackConfig": "apps/migration-runner/webpack.config.js"
+      },
+      "configurations": {
+        "production": {
+          "optimization": true,
+          "extractLicenses": true,
+          "inspect": false
+        }
       }
     },
     "serve": {
