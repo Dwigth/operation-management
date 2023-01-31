@@ -23,7 +23,7 @@ export class User {
   @Column("character varying", {
     name: "password_hash",
     nullable: true,
-    length: 100,
+    length: 128,
   })
   passwordHash: string | null;
 
