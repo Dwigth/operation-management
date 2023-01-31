@@ -5,7 +5,7 @@ import * as winston from 'winston';
 import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { entities, User } from '@operation-management/database';
+import { entities } from '@operation-management/database';
 
 
 @Module({
@@ -43,7 +43,6 @@ import { entities, User } from '@operation-management/database';
       synchronize: false,
       logging: true
     }),
-    TypeOrmModule.forFeature([User]),
     AuthModule,
   ],
   controllers: [AppController],
