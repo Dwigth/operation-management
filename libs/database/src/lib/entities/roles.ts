@@ -15,7 +15,7 @@ export class Roles {
   id: number;
 
   @Column("character varying", { name: "role", nullable: true, length: 12 })
-  role: string | null;
+  name: string | null;
 
   @OneToMany(
     () => RolesPermissions,
