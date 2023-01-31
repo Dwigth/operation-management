@@ -1,9 +1,12 @@
-import { Entity, JoinColumn, ManyToOne } from "typeorm";
+import { Entity, JoinColumn, ManyToOne, PrimaryColumn } from "typeorm";
 import { Capabilities } from "./capabilities";
 import { Permissions } from "./permissions";
 
 @Entity("permissions_capabilities", { schema: "public" })
 export class PermissionsCapabilities {
+  @PrimaryColumn()
+  id: number|null;
+
   @ManyToOne(
     () => Capabilities,
     (capabilities) => capabilities.permissionsCapabilities
