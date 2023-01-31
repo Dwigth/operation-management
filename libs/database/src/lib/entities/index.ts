@@ -10,6 +10,7 @@ import { Teams } from './teams';
 import { User } from './user';
 import { UserRoles } from './user-roles';
 import { UserTeamChangesLogs } from './user-team-changes-logs';
+import { UserTeamDates } from './user-team-dates';
 
 export {
   AccountTeams,
@@ -24,6 +25,7 @@ export {
   User,
   UserRoles,
   UserTeamChangesLogs,
+  UserTeamDates,
 };
 
 export const entities = [
@@ -39,4 +41,5 @@ export const entities = [
   User,
   UserRoles,
   UserTeamChangesLogs,
+  UserTeamDates,
 ];
