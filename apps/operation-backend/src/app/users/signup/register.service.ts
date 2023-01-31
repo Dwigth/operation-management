@@ -15,10 +15,11 @@ export class RegisterService {
         private passwrdService: PaswordService,
         ) { }
 
-    async createUser({ email, password, }: SignupDTO): Promise<SignupUserCreatedDTO> {
+    async createUser({ email, password, name }: SignupDTO): Promise<SignupUserCreatedDTO> {
         this.logger.debug(email,password)
         const user = this.userRepository.create({
             email,
+            name,
         });
         const userInstance = await this.passwrdService.createPassword({ user, password});
         this.logger.debug({...userInstance});
