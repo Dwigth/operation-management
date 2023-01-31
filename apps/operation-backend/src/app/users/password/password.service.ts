@@ -30,7 +30,7 @@ export class PaswordService implements PaswordManagement {
         if (!this.validateProps({ user, password })) {
             Promise.resolve(Error("Not valid properties"))
         }
-        user.hash = crypto.pbkdf2Sync(password, this.salt,
+        user.passwordHash = crypto.pbkdf2Sync(password, this.salt,
             this.iterations, this.keylens, `sha512`).toString(`hex`);
         return Promise.resolve(user);
     }
@@ -39,7 +39,7 @@ export class PaswordService implements PaswordManagement {
         if (!this.validateProps({ user, password })) return Promise.resolve(false);
         const hash = crypto.pbkdf2Sync(password, this.salt,
             this.iterations, this.keylens, `sha512`).toString(`hex`);
-        const isValid = user.hash === hash;
+        const isValid = user.passwordHash === hash;
         return Promise.resolve(isValid);
     }
 
