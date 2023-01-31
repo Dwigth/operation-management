@@ -7,7 +7,7 @@ import { UserJWTPayload } from '@operation-management/common';
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor() {
     super({
-      jwtFromRequest: ExtractJwt.fromHeader('x-travel-token'),
+      jwtFromRequest: ExtractJwt.fromHeader('x-operations-key'),
       ignoreExpiration: false,
       secretOrKey: process.env['JWT_SECRET'],
     });
