@@ -7,3 +7,19 @@ export class UserDto extends SignupDTO {
 }
 
 export class UpdateUserDto extends UserDto {}
+
+export class UserListDto {
+    @ApiProperty()
+    id: number;
+    @ApiProperty()
+    name: string;
+    @ApiProperty()
+    email: string;
+}
+
+export class UserListQuery {
+    @ApiProperty()
+    take: number;
+    @ApiProperty({required: false})
+    skip: number;
+}
