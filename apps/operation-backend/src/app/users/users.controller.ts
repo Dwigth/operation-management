@@ -25,7 +25,7 @@ export class UsersController {
   @Roles(ROLES.admin, ROLES.super_user)
   @Post('')
   @ApiResponse({
-    status: 200,
+    status: 201,
     schema: { example: { email: 'email@email.com', created: new Date() } },
   })
   @ApiResponse({
