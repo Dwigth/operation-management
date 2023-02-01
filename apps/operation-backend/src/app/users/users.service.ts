@@ -3,9 +3,9 @@ import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import {
+  ListQuery,
   UpdateUserDto,
   UserListDto,
-  UserListQuery,
 } from '@operation-management/common';
 import { PaswordService } from './password/password.service';
 import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
@@ -72,7 +72,7 @@ export class UsersService {
     };
   }
 
-  async list({ skip, take }: UserListQuery): Promise<UserListDto[]> {
+  async list({ skip, take }: ListQuery): Promise<UserListDto[]> {
     return await this.userRepository.find({
       skip,
       take,
