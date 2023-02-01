@@ -23,8 +23,7 @@ export class AuthService {
     });
 
     if (isValid) {
-      const { ...result } = user;
-      return result;
+      return user;
     }
     return null;
   }
