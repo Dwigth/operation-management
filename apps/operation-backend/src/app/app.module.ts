@@ -8,6 +8,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { entities } from '@operation-management/database';
 import { UsersModule } from './users/users.module';
 import { AccountsModule } from './accounts/accounts.module';
+import { TeamsModule } from './teams/teams.module';
 
 
 @Module({
@@ -48,6 +49,7 @@ import { AccountsModule } from './accounts/accounts.module';
     AuthModule,
     UsersModule,
     AccountsModule,
+    TeamsModule,
   ],
   controllers: [AppController],
   providers: [],
