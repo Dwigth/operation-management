@@ -2,7 +2,11 @@ import { User } from '@operation-management/database';
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { UpdateUserDto } from '@operation-management/common';
+import {
+  UpdateUserDto,
+  UserListDto,
+  UserListQuery,
+} from '@operation-management/common';
 import { PaswordService } from './password/password.service';
 import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
 import { Logger } from 'winston';
@@ -25,9 +29,9 @@ export class UsersService {
     const user = await this.userRepository.findOne({
       where: { id },
     });
-    if(!user) {
+    if (!user) {
       this.logger.info(`[${UsersService.name}] USER WITH ID ${id} NOT FOUND`);
-      throw  new NotFoundException()
+      throw new NotFoundException();
     }
 
     user.hidePassword();
@@ -56,15 +60,24 @@ export class UsersService {
 
   async deleteOne(id: number) {
     const { affected } = await this.userRepository.softDelete(id);
-    if(affected > 0) {
+    if (affected > 0) {
       return {
         message: 'Successfully deleted',
-        deleted: new Date()
-      }
+        deleted: new Date(),
+      };
     }
     return {
       message: 'Could not deleted',
-      deleted: null
-    }
+      deleted: null,
+    };
+  }
+
+  async list({ skip, take }: UserListQuery): Promise<UserListDto[]> {
+    return await this.userRepository.find({
+      skip,
+      take,
+      select: ['id', 'email', 'name'],
+      order: { id: 'ASC' },
+    });
   }
 }
