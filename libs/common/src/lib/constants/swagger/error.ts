@@ -17,3 +17,13 @@ export const NotFound = {
     },
   },
 };
+
+export const NotAuthorized = {
+  status: 404,
+  schema: {
+    example: {
+      statusCode: 401,
+      message: 'Unauthorized',
+    },
+  },
+};
