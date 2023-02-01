@@ -1,9 +1,11 @@
 import {
   Column,
+  DeleteDateColumn,
   Entity,
   Index,
   OneToMany,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from "typeorm";
 import { TeamUsers } from "./team-users";
 import { UserRoles } from "./user-roles";
@@ -45,4 +47,35 @@ export class User {
 
   @OneToMany(() => UserRoles, (userRoles) => userRoles.user)
   userRoles: UserRoles[];
+
+  @UpdateDateColumn({
+    name:'updated_date'
+  })
+  updated: Date;
+
+  @DeleteDateColumn({
+    name: 'deleted_date'
+  })
+  deletedAt: Date;
+
+  
+  public setEmail(newEmail : string) {
+    if(newEmail) this.email = newEmail;
+  }
+
+  
+  public setName(newName : string) {
+    if(newName) this.name = newName;
+  }
+
+  public setPassword(newPassword : string) {
+    if(newPassword) this.passwordHash = newPassword;
+  }
+  
+  public hidePassword() {
+    this.passwordHash = 'NON_READABLE_FROM_CLIENT';
+  }
+  
+  
 }
+ 
