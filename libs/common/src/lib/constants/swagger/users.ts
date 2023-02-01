@@ -29,3 +29,20 @@ export const USER = {
     },
   },
 };
+
+export const USERS = {
+  status: 200,
+  schema: {
+    
+      type: 'array',
+      items: {
+        type: 'object',
+        properties: {
+          id: { type: 'integer'},
+          name: { type: 'string'},
+          email: { type: 'string'}
+        }
+      }
+    
+  }
+}
