@@ -1,5 +1,5 @@
 import { Body, Controller, Post, UseGuards } from '@nestjs/common';
-import { ApiTags, ApiHeader } from '@nestjs/swagger';
+import { ApiTags, ApiHeader, ApiResponse } from '@nestjs/swagger';
 import { ROLES, SignupDTO } from '@operation-management/common';
 import { AuthService } from '../auth/auth.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
@@ -16,7 +16,7 @@ import { RegisterService } from './signup/register.service';
 })
 @Controller({
   version: '1',
-  path: 'users'
+  path: 'users',
 })
 export class UsersController {
   constructor(private registerService: RegisterService) {}
@@ -24,6 +24,20 @@ export class UsersController {
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(ROLES.admin, ROLES.super_user)
   @Post('')
+  @ApiResponse({
+    status: 200,
+    schema: { example: { email: 'email@email.com', created: new Date() } },
+  })
+  @ApiResponse({
+    status: 403,
+    schema: {
+      example: {
+        statusCode: 403,
+        message: 'Forbidden resource',
+        error: 'Forbidden',
+      },
+    },
+  })
   async signup(@Body() data: SignupDTO) {
     return await this.registerService.createUser(data);
   }
