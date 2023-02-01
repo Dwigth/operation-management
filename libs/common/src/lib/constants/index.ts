@@ -1,2 +1,4 @@
 export * from './roles';
-export * from './swagger';
+import * as SWAGGER from './swagger';
+
+export { SWAGGER };
