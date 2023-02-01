@@ -6,6 +6,8 @@ import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { entities } from '@operation-management/database';
+import { UsersModule } from './users/users.module';
+import { AccountsModule } from './accounts/accounts.module';
 
 
 @Module({
@@ -44,6 +46,8 @@ import { entities } from '@operation-management/database';
       logging: true
     }),
     AuthModule,
+    UsersModule,
+    AccountsModule,
   ],
   controllers: [AppController],
   providers: [],
