@@ -2,6 +2,7 @@ import { Injectable, Logger } from "@nestjs/common";
 import { PasswordProps, PaswordManagement } from "./password.class";
 import * as crypto from 'crypto';
 import { ConfigService } from "@nestjs/config";
+import { User } from "@operation-management/database";
 
 @Injectable()
 export class PaswordService implements PaswordManagement {
@@ -26,7 +27,7 @@ export class PaswordService implements PaswordManagement {
         return true;
     }
 
-    createPassword({ user, password }: PasswordProps): Promise<any> {
+    createPassword({ user, password }: PasswordProps): Promise<User> {
         if (!this.validateProps({ user, password })) {
             Promise.resolve(Error("Not valid properties"))
         }
