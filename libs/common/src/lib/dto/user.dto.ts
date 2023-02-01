@@ -16,10 +16,3 @@ export class UserListDto {
     @ApiProperty()
     email: string;
 }
-
-export class UserListQuery {
-    @ApiProperty()
-    take: number;
-    @ApiProperty({required: false})
-    skip: number;
-}
