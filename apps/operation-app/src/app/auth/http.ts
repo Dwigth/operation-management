@@ -13,7 +13,7 @@ export function formatUrl({
 export function setTravelHeaders() {
   return {
     headers: {
-      'x-travel-token': localStorage.getItem('access') ?? '',
+      'x-operations-key': localStorage.getItem('access') ?? '',
     },
   };
 }

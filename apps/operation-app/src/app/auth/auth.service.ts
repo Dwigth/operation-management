@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { formatUrl } from './travel-http';
+import { formatUrl } from './http';
 
 @Injectable({
   providedIn: 'root',
