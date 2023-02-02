@@ -9,6 +9,7 @@ import { entities } from '@operation-management/database';
 import { UsersModule } from './users/users.module';
 import { AccountsModule } from './accounts/accounts.module';
 import { TeamsModule } from './teams/teams.module';
+import { MovementLogsModule } from './movement-logs/movement-logs.module';
 
 
 @Module({
@@ -50,6 +51,7 @@ import { TeamsModule } from './teams/teams.module';
     UsersModule,
     AccountsModule,
     TeamsModule,
+    MovementLogsModule,
   ],
   controllers: [AppController],
   providers: [],

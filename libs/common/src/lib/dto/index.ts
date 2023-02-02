@@ -4,3 +4,4 @@ export * from  './user.dto';
 export * from  './teams.dto';
 export * from  './accounts.dto';
 export * from './list.dto';
+export * from './movement-log.dto';
