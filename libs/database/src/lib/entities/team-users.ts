@@ -1,10 +1,12 @@
 import {
+  DeleteDateColumn,
   Entity,
   Index,
   JoinColumn,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from "typeorm";
 import { Teams } from "./teams";
 import { UserTeamDates } from "./user-team-dates";
@@ -40,4 +42,14 @@ export class TeamUsers {
     (userTeamChangesLogs) => userTeamChangesLogs.toTeam
   )
   userTeamChangesLogsTo: UserTeamChangesLogs[];
+  
+  @UpdateDateColumn({
+    name:'updated_date'
+  })
+  updated: Date;
+
+  @DeleteDateColumn({
+    name: 'deleted_date'
+  })
+  deletedAt: Date;
 }
