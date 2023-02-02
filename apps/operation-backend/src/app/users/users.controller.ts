@@ -9,7 +9,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { ApiTags, ApiHeader, ApiResponse, ApiQuery } from '@nestjs/swagger';
-import { ROLES, SignupDTO, UpdateUserDto, SWAGGER, UserListQuery } from '@operation-management/common';
+import { ROLES, SignupDTO, UpdateUserDto, SWAGGER, ListQuery } from '@operation-management/common';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { Roles } from '../auth/roles.decorator';
 import { RolesGuard } from '../auth/roles.guard';
@@ -85,7 +85,7 @@ export class UsersController {
   @Get('list')
   @ApiResponse(ERRORS.ForbiddenResource)
   @ApiResponse(USERS.USERS)
-  async list(@Query() userList: UserListQuery) {
+  async list(@Query() userList: ListQuery) {
     return await this.userService.list(userList);
   }
 }

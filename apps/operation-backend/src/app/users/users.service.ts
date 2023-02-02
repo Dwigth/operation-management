@@ -1,7 +1,7 @@
 import { User } from '@operation-management/database';
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 import {
   ListQuery,
   UpdateUserDto,
@@ -78,6 +78,15 @@ export class UsersService {
       take,
       select: ['id', 'email', 'name'],
       order: { id: 'ASC' },
+    });
+  }
+
+  async findMany(ids: number[]) {
+    return await this.userRepository.find({
+      select: ['id','name'],
+      where: {
+        id: In(ids)
+      },
     });
   }
 }
