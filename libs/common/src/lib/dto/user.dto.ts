@@ -16,3 +16,12 @@ export class UserListDto {
     @ApiProperty()
     email: string;
 }
+
+export class UpdateUserProfileInfo extends UpdateUserDto {
+    @ApiProperty()
+    englishLevel: string;
+    @ApiProperty()
+    technicalKnowledge: string;
+    @ApiProperty()
+    cvLink: string;
+}
