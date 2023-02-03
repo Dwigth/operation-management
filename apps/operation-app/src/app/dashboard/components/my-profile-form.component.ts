@@ -74,12 +74,12 @@ import { DashboardService } from '../dashboard.service';
               <input
                 type="text"
                 class="form-control w-auto"
+                readonly
                 formControlName="email"
                 spellcheck="false"
                 data-ms-editor="true"
               />
             </div>
-            <div class="col-auto"><a class="btn"> Change </a></div>
           </div>
         </div>
         <h3 class="card-title mt-4">Security</h3>
