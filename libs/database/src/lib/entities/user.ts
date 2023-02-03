@@ -71,6 +71,18 @@ export class User {
   public setPassword(newPassword : string) {
     if(newPassword) this.passwordHash = newPassword;
   }
+
+  public setEnglishLevel(englishLevel : string) {
+    if(englishLevel) this.englishLevel = englishLevel;
+  }
+
+  public setTechnicalKnowledge(techKnow : string) {
+    if(techKnow) this.technicalKnowledge = techKnow;
+  }
+
+  public setCvLink(cv : string) {
+    if(cv) this.cvLink = cv;
+  }
   
   public hidePassword() {
     this.passwordHash = 'NON_READABLE_FROM_CLIENT';

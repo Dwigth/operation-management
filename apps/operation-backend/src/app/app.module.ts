@@ -10,6 +10,7 @@ import { UsersModule } from './users/users.module';
 import { AccountsModule } from './accounts/accounts.module';
 import { TeamsModule } from './teams/teams.module';
 import { MovementLogsModule } from './movement-logs/movement-logs.module';
+import { ProfileModule } from './profile/profile.module';
 
 
 @Module({
@@ -52,6 +53,7 @@ import { MovementLogsModule } from './movement-logs/movement-logs.module';
     AccountsModule,
     TeamsModule,
     MovementLogsModule,
+    ProfileModule,
   ],
   controllers: [AppController],
   providers: [],
