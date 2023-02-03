@@ -20,10 +20,6 @@ import { AuthService } from '../auth.service';
             ></operation-management-login-form>
           </div>
         </div>
-        <div class="text-center text-muted mt-3">
-          Don't have account yet?
-          <a routerLink="/auth/signup" tabindex="-1">Sign up</a>
-        </div>
       </div>
     </div>
   `,
