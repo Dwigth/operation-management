@@ -18,30 +18,44 @@ import { DashboardService } from '../dashboard.service';
           <span class="navbar-toggler-icon"></span>
         </button>
         <h1 class="navbar-brand navbar-brand-autodark">
-          <a routerLink="dashboard">
-            <img
-              src="./static/logo-white.svg"
-              width="110"
-              height="32"
-              alt="Tabler"
-              class="navbar-brand-image"
-            />
-          </a>
+          <a routerLink="dashboard"> </a>
         </h1>
         <div class="collapse navbar-collapse" id="sidebar-menu">
           <ul class="navbar-nav pt-lg-3">
-            <li class="nav-item">
-              <button class="btn">Add category</button>
-            </li>
             <!-- Menu Items -->
             <li class="nav-item">
               <operation-management-menu-item
-                *ngFor="let category of categories"
                 [item]="{
-                  label: category.categoryName,
-                  icon: 'ti-building-lighthouse',
-                  page: 'category/',
-                  id: category.id
+                  label: 'My Account',
+                  icon: 'ti-user',
+                  page: 'my-account'
+                }"
+              ></operation-management-menu-item>
+            </li>
+            <li class="nav-item">
+              <operation-management-menu-item
+                [item]="{
+                  label: 'Users',
+                  icon: 'ti-users',
+                  page: 'users'
+                }"
+              ></operation-management-menu-item>
+            </li>
+            <li class="nav-item">
+              <operation-management-menu-item
+                [item]="{
+                  label: 'Accounts',
+                  icon: 'ti-building',
+                  page: 'accounts'
+                }"
+              ></operation-management-menu-item>
+            </li>
+            <li class="nav-item">
+              <operation-management-menu-item
+                [item]="{
+                  label: 'Movement Logs',
+                  icon: 'ti-book',
+                  page: 'movement-logs'
                 }"
               ></operation-management-menu-item>
             </li>
@@ -52,11 +66,5 @@ import { DashboardService } from '../dashboard.service';
   `,
 })
 export class AsideMenuComponent {
-  categories: any[];
-
-  constructor(protected dashboardService: DashboardService) {
-    this.dashboardService.getCategories().subscribe((data) => {
-      this.categories = data;
-    });
-  }
+  constructor(protected dashboardService: DashboardService) {}
 }
