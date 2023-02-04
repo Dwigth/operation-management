@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CreateTeamDto } from '@operation-management/common';
+import { CreateTeamDto, ListQuery } from '@operation-management/common';
 import { AccountTeams, Teams } from '@operation-management/database';
-import { Repository } from 'typeorm';
+import { Equal, Repository } from 'typeorm';
 import { AccountsService } from '../accounts/accounts.service';
 import { MemberService } from './members.service';
 
@@ -29,5 +29,36 @@ export class TeamsService {
       team,
       created: new Date(),
     };
+  }
+
+  async getTeam(teamId: number) {
+    const team = await this.teamsRepo.findOne({
+      where: {
+        id: teamId,
+      },
+    })
+    const members = await this.membersService.getMembersOfTeam(teamId);
+    return {
+      team,
+      members
+    }
+  }
+
+  async getAccountTeams(accountId: number) {
+    return await this.accountTeamsRepo.find({
+      relations: ['team'],
+      where: {
+        account: {
+          id: Equal(accountId)
+        }
+      }
+    });
+  }
+
+  async list({skip, take}: ListQuery) {
+    return await this.teamsRepo.find({
+      take,
+      skip,
+    })
   }
 }

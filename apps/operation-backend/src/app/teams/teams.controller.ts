@@ -10,7 +10,7 @@ import {
   Query,
 } from '@nestjs/common';
 import { ApiBody, ApiHeader, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { CreateTeamDto, MoveMemberDto, ROLES, SWAGGER } from '@operation-management/common';
+import { CreateTeamDto, ListQuery, MoveMemberDto, ROLES, SWAGGER } from '@operation-management/common';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { Roles } from '../auth/roles.decorator';
 import { RolesGuard } from '../auth/roles.guard';
@@ -55,9 +55,35 @@ export class TeamsController {
 
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(ROLES.admin, ROLES.super_user)
+  @Get('')
+  @ApiResponse(ERRORS.ForbiddenResource)
+  @ApiResponse(USERS.USERS)
+  async getTeam(@Query('teamId') teamId: number) { 
+    return await this.teamsService.getTeam(teamId);
+  }
+
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(ROLES.admin, ROLES.super_user)
+  @Get('account')
+  @ApiResponse(ERRORS.ForbiddenResource)
+  @ApiResponse(USERS.USERS)
+  async getAccountTeams(@Query('accountId') accountId: number) { 
+    return await this.teamsService.getAccountTeams(accountId);
+  }
+
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(ROLES.admin, ROLES.super_user)
   @Post('move-user')
   @ApiResponse(ERRORS.ForbiddenResource)
   async move(@Body() moveMember: MoveMemberDto) {
     return await this.membersService.changeMemberOfTeam(moveMember);
+  }
+
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(ROLES.admin, ROLES.super_user)
+  @Get('list')
+  @ApiResponse(ERRORS.ForbiddenResource)
+  async list(@Query() query: ListQuery) {
+    return await this.teamsService.list(query);
   }
 }
