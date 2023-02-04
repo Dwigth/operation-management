@@ -148,10 +148,11 @@ export class MyProfileFormComponent implements AfterViewInit {
   }
 
   onSubmit() {
-    console.log('submit');
-    this.dashboardService
-      .updateProfile(this.profileForm.value as UpdateUserProfileInfo)
-      .subscribe((data) => this.populateForm(data));
+    if (confirm('Are you sure you want to update your info?')) {
+      this.dashboardService
+        .updateProfile(this.profileForm.value as UpdateUserProfileInfo)
+        .subscribe((data) => this.populateForm(data));
+    }
   }
 
   cancel() {
