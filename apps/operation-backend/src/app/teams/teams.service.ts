@@ -42,6 +42,7 @@ export class TeamsService {
 
   async getTeam(teamId: number) {
     const team = await this.teamsRepo.findOne({
+      relations: ['accountTeams.account'],
       where: {
         id: teamId,
       },
