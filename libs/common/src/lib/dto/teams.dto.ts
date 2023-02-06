@@ -65,3 +65,9 @@ export class AssocToAccountDto {
   @ApiProperty({required: false})
   remove: boolean;
 }
+
+
+export class TeamSearchDto {
+  @ApiProperty()
+  teamName: string;
+}

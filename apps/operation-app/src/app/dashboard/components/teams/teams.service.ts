@@ -108,5 +108,17 @@ export class TeamsService {
       }
     );
   }
+
+  search(teamName: string) {
+    return this.http.post<TeamListDto[]>(
+      formatUrl({ version: 1, path: 'teams/search' }),
+      {
+        teamName,
+      },
+      {
+        ...setTravelHeaders(),
+      }
+    );
+  }
   
 }

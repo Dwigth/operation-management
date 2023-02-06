@@ -33,6 +33,10 @@ import { CreateUserComponent } from './components/users/new-user.component';
 import { CreateAccountComponent } from './components/accounts/new-account.component';
 import { CreateTeamComponent } from './components/teams/new-team.component';
 import { MembersComponent } from './components/teams/members.component';
+import { MovementLogFormComponent } from './components/movement-logs/movement-form.component';
+import { MovementLogsListComponent } from './components/movement-logs/movement-list.component';
+import { MovementLogsService } from './components/movement-logs/movement-logs.service';
+import { FindTeamComponent } from './components/teams/find-team.component';
 
 @NgModule({
   imports: [
@@ -69,7 +73,16 @@ import { MembersComponent } from './components/teams/members.component';
     CreateAccountComponent,
     CreateTeamComponent,
     MembersComponent,
+    MovementLogFormComponent,
+    MovementLogsListComponent,
+    FindTeamComponent,
   ],
-  providers: [DashboardService, TeamsService, AccountsService, UserService],
+  providers: [
+    DashboardService,
+    TeamsService,
+    AccountsService,
+    UserService,
+    MovementLogsService,
+  ],
 })
 export class DashboardModule {}

@@ -9,9 +9,10 @@ import {
   CreateTeamDto,
   ListQuery,
   TeamListDto,
+  TeamSearchDto,
 } from '@operation-management/common';
 import { AccountTeams, Teams } from '@operation-management/database';
-import { Equal, Repository } from 'typeorm';
+import { Equal, ILike, Repository } from 'typeorm';
 import { AccountsService } from '../accounts/accounts.service';
 import { MemberService } from './members.service';
 
@@ -154,5 +155,11 @@ export class TeamsService {
       message: 'Team has been associated with the team successfully',
       associated: new Date(),
     };
+  }
+
+  async search({teamName}: TeamSearchDto) {
+    return await this.teamsRepo.findBy({
+      teamName: ILike(`%${teamName}%`)
+    })
   }
 }

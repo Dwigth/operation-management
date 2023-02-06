@@ -10,7 +10,7 @@ import {
   Query,
 } from '@nestjs/common';
 import { ApiBody, ApiHeader, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { AssocToAccountDto, CreateTeamDto, ListQuery, MoveMemberDto, ROLES, SWAGGER, UpdateTeamDto } from '@operation-management/common';
+import { AssocToAccountDto, CreateTeamDto, ListQuery, MoveMemberDto, ROLES, SWAGGER, TeamSearchDto, UpdateTeamDto } from '@operation-management/common';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { Roles } from '../auth/roles.decorator';
 import { RolesGuard } from '../auth/roles.guard';
@@ -109,6 +109,14 @@ export class TeamsController {
   @ApiResponse(ERRORS.ForbiddenResource)
   async delete(@Query('teamId') teamId: number) {
     return await this.teamsService.delete(teamId);
+  }
+
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(ROLES.admin, ROLES.super_user)
+  @Post('search')
+  @ApiResponse(ERRORS.ForbiddenResource)
+  async search(@Body() body: TeamSearchDto) {
+    return await this.teamsService.search(body);
   }
 
 }
