@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { UserListDto } from '@operation-management/common';
+import { UserService } from './user.service';
 
 @Component({
   selector: 'operation-management-users-collection',
@@ -18,11 +19,11 @@ import { UserListDto } from '@operation-management/common';
           </div>
           <div class="d-flex">
             <a
-              [routerLink]="['update/' + user.id]"
+              [routerLink]="['details/' + user.id]"
               routerLinkActive="router-link-active"
               class="card-btn cursor-pointer"
             >
-              Update</a
+              Details</a
             >
             <a (click)="deleteUser(user.id)" class="card-btn cursor-pointer">
               Delete</a
@@ -35,8 +36,12 @@ import { UserListDto } from '@operation-management/common';
 })
 export class UserCollectionComponent {
   @Input() users: UserListDto[];
-
+  constructor(private userService: UserService) {}
   deleteUser(userId: number) {
-    //
+    if (confirm('Are you sure you want to delete this user?')) {
+      this.userService.delete(userId).subscribe((result) => {
+        alert(result.message);
+      });
+    }
   }
 }
