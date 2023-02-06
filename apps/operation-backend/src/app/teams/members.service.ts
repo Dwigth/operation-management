@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import {
   AddMembers,
@@ -72,8 +72,25 @@ export class MemberService {
     return teamMembers;
   }
 
-  async changeMemberOfTeam({ member, teamId }: MoveMemberDto) {
-    const team = await this.teamsRepo.findOneBy({ id: teamId });
+  async changeMemberOfTeam({ member, teamId, remove }: MoveMemberDto) {
+    if(remove) {
+      await this.memberMovement.moveMember({
+        toTeam: null,
+        member,
+      })
+
+      return {
+        message:  `User was remove`,
+        moved: new Date()
+      }
+    }
+
+    if(teamId === null) {
+      throw new ConflictException('TeamId is not set');
+      
+    }
+
+    const team = await this.teamsRepo.findOneBy({ id: teamId });    
     if (!team) {
       throw new NotFoundException();
     }
@@ -84,8 +101,8 @@ export class MemberService {
     });
 
     return {
-        message: `User ${memberMoved.user.name} was changed to the ${memberMoved.team.teamName} team`,
-        moved: new Date(),
-    }
+      message: `User ${memberMoved.user.name} was changed to the ${memberMoved.team.teamName} team`,
+      moved: new Date(),
+    };
   }
 }

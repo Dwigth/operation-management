@@ -1,6 +1,11 @@
-import { ConflictException, Inject, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  ConflictException,
+  Inject,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { AddMember, LOGS } from '@operation-management/common';
+import { MoveMember, LOGS } from '@operation-management/common';
 import {
   TeamUsers,
   UserTeamChangesLogs,
@@ -28,41 +33,55 @@ export class MemberMovementService {
     @Inject(WINSTON_MODULE_PROVIDER) private readonly logger: Logger
   ) {}
 
-  async moveMember({ member, toTeam }: AddMember): Promise<TeamUsers> {
+  /**
+   * Can change to a Team or to null
+   * @param MoveMember 
+   * @returns 
+   */
+  async moveMember({ member, toTeam }: MoveMember): Promise<TeamUsers> {
+    const userMovementLog = new UserTeamChangesLogs();
+    const userTeamDates = new UserTeamDates();
+    const teamUser = new TeamUsers();
     const fromTeamUserDb = await this.teamUsersRepo.findOne({
       where: {
         user: Equal(member.id),
       },
-      relations: ['team'],
+      relations: ['team', 'user'],
     });
 
-    const user = await this.usersService.findOneById(member.id);
+    const user = fromTeamUserDb.user;
     if (!user) {
-      this.logger.info(LOGS.notFoundMessage({
-        origin: MemberMovementService.name,
-        notFoundObjectName: 'USER',
-        specificId: user.id,
-      }));
+      this.logger.info(
+        LOGS.notFoundMessage({
+          origin: MemberMovementService.name,
+          notFoundObjectName: 'USER',
+          specificId: user.id,
+        })
+      );
       throw new NotFoundException();
     }
 
     const { team: previousTeam } = fromTeamUserDb;
-    if(previousTeam.id === toTeam.id) {
-        this.logger.info('USER CANT CHANGE BECAUSE IS IN THE SAME TEAM')
+
+    teamUser.team = null;
+    teamUser.user = user;
+    userTeamDates.startDate = new Date().toISOString();
+    userTeamDates.finishDate = new Date().toISOString();
+    
+    if (toTeam) {
+      if (previousTeam?.id === toTeam.id) {
+        this.logger.info('USER CANT CHANGE BECAUSE IS IN THE SAME TEAM');
         throw new ConflictException();
+      }
+
+      teamUser.team = toTeam;
+
+      userTeamDates.finishDate = member.finishDate;
+      userTeamDates.startDate = member.startDate;
     }
-
-    const userMovementLog = new UserTeamChangesLogs();
-    const userTeamDates = new UserTeamDates();
-    const teamUser = new TeamUsers();
-
-    userTeamDates.finishDate = member.finishDate;
-    userTeamDates.startDate = member.startDate;
 
     const userTeamDateDb = await this.userTeamDatesRepo.save(userTeamDates);
 
-    teamUser.team = toTeam;
-    teamUser.user = user;
     teamUser.userDates = userTeamDateDb;
 
     const teamUserDb = await this.teamUsersRepo.save(teamUser);
