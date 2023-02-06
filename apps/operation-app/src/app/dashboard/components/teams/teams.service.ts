@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {
+  AssocToAccountDto,
   CreateTeamDto,
+  MoveMemberDto,
   TeamListDto,
   TeamWithMembers,
   UpdateTeamDto,
@@ -15,15 +17,27 @@ export class TeamsService {
   constructor(private http: HttpClient) {}
 
   createTeam(data: CreateTeamDto) {
-    return this.http.post<{created: Date}>(
+    return this.http.post<{ created: Date }>(
       formatUrl({ version: 1, path: 'teams/list' }),
       {
-        ...data
+        ...data,
       },
       {
         ...setTravelHeaders(),
       }
-    )
+    );
+  }
+
+  moveMember(data: MoveMemberDto) {
+    return this.http.post<{ moved: Date; message: string }>(
+      formatUrl({ version: 1, path: 'teams/move-user' }),
+      {
+        ...data,
+      },
+      {
+        ...setTravelHeaders(),
+      }
+    );
   }
 
   getTeams() {
@@ -60,7 +74,7 @@ export class TeamsService {
   }
 
   updateTeam(data: UpdateTeamDto) {
-    return this.http.put<{updated: Date, message: string}>(
+    return this.http.put<{ updated: Date; message: string }>(
       formatUrl({ version: 1, path: 'teams' }),
       {
         ...data,
@@ -72,14 +86,27 @@ export class TeamsService {
   }
 
   deleteTeam(teamId: number) {
-    return this.http.delete<{deleted: Date, message: string}>(
+    return this.http.delete<{ deleted: Date; message: string }>(
       formatUrl({ version: 1, path: 'teams' }),
       {
         params: {
-          teamId
+          teamId,
         },
         ...setTravelHeaders(),
       }
     );
   }
+
+  assocToAccount(data: AssocToAccountDto) {
+    return this.http.post<{ associated: Date; message: string }>(
+      formatUrl({ version: 1, path: 'teams/assoc-account' }),
+      {
+        ...data,
+      },
+      {
+        ...setTravelHeaders(),
+      }
+    );
+  }
+  
 }
