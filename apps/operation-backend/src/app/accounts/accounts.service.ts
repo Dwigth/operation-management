@@ -8,7 +8,7 @@ import {
 } from '@operation-management/common';
 import { Accounts } from '@operation-management/database';
 import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
-import { Repository } from 'typeorm';
+import { ILike, Repository } from 'typeorm';
 import { UsersService } from '../users/users.service';
 import { Logger } from 'winston';
 
@@ -92,6 +92,15 @@ export class AccountsService {
       take,
       select: ['id', 'accountName', 'clientName', 'operationManagerName'],
       order: { id: 'ASC' },
+    });
+  }
+
+  async search(searchTerms: string) {
+    return await this.accountsRepo.find({
+      select: ['id','clientName','operationManagerName', 'accountName'],
+      where: {
+        clientName: ILike(`%${searchTerms}%`),
+      },
     });
   }
 }
