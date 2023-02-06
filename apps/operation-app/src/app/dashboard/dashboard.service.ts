@@ -1,36 +1,33 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import {
+  UpdateUserProfileInfo,
+  UserRetrieveDto,
+} from '@operation-management/common';
 import { formatUrl, setTravelHeaders } from '../auth/http';
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class DashboardService {
-    constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-    getCategories() {
-        return this.http.get<any[]>(
-            formatUrl({
-                path: 'categories',
-                version: 1,
-            }),
-            {
-                ...setTravelHeaders()
-            }
-        )
-    }
+  getProfile() {
+    return this.http.get<UserRetrieveDto>(
+      formatUrl({ version: 1, path: 'profile/my-data' }),
+      {
+        ...setTravelHeaders(),
+      }
+    );
+  }
 
-    getTravels(categoryId: number) {
-        return this.http.get<any[]>(
-            formatUrl({
-                path: 'travels',
-                version: 1,
-            }),
-            {
-                ...setTravelHeaders(),
-                params: {
-                    categoryId
-                }
-            }
-        )
-    }
-    
+  updateProfile(updateUser: UpdateUserProfileInfo) {
+    return this.http.put<UserRetrieveDto>(
+      formatUrl({ version: 1, path: 'profile/my-data' }),
+      { ...updateUser },
+      {
+        ...setTravelHeaders(),
+      }
+    );
+  }
+
+
 }

@@ -27,20 +27,12 @@ export class ProfileService {
     private passwordService: PaswordService
   ) {}
 
-  private validateRequestUser(userId: number) {
-    const { user: requestUser } = this.request;
-    if (requestUser.userId !== +userId) {
-      throw new UnauthorizedException();
-    }
-  }
-
-  async getMyInfo(userId: number) {
-    this.validateRequestUser(userId);
+  async getMyInfo() {
+    const { user: { userId} } = this.request;
     return await this.userService.findOneById(userId);
   }
 
   async updateMyInfo({
-    id,
     cvLink,
     email,
     englishLevel,
@@ -48,8 +40,8 @@ export class ProfileService {
     password,
     technicalKnowledge,
   }: UpdateUserProfileInfo) {
-    this.validateRequestUser(id);
-    let dbUser = await this.userRepo.findOneBy({ id });
+    const { user: { userId} } = this.request;
+    let dbUser = await this.userRepo.findOneBy({ id: userId });
     dbUser.setName(name);
     dbUser.setEmail(email);
     dbUser.setEnglishLevel(englishLevel);
@@ -61,7 +53,7 @@ export class ProfileService {
         password,
       });
     }
-    const { affected } = await this.userRepo.update(id, dbUser);
+    const { affected } = await this.userRepo.update(userId, dbUser);
     if (affected > 0) {
       dbUser.hidePassword();
       return dbUser;

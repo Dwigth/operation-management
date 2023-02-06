@@ -27,8 +27,8 @@ export class ProfileController {
   @Get('my-data')
   @ApiResponse(ERRORS.ForbiddenResource)
   @ApiResponse(USERS.USER)
-  async myData(@Query('userId') userId: number) {
-    return await this.profileService.getMyInfo(userId);
+  async myData() {
+    return await this.profileService.getMyInfo();
   }
 
   @UseGuards(JwtAuthGuard, RolesGuard)

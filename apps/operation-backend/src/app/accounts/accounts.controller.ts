@@ -71,4 +71,20 @@ export class AccountsController {
     return await this.accountsService.list(dto);
   }
 
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(ROLES.admin, ROLES.super_user)
+  @Post('search')
+  @ApiResponse(ERRORS.ForbiddenResource)
+  @ApiBody({
+    schema: {
+      type:  'object',
+      properties: {
+        searchTerms: {type: 'string'}
+      }
+    }
+  })
+  async search(@Body('searchTerms') searchTerms: string) {    
+    return await this.accountsService.search(searchTerms);
+  }
+
 }

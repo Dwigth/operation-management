@@ -22,7 +22,7 @@ declare const L: any;
     </div>
   `,
 })
-export class CategoryPageComponent implements OnInit, OnDestroy {
+export class CategoryPageComponent  {
   protected id: number;
   private sub: any;
   private travelSub: any;
@@ -33,36 +33,4 @@ export class CategoryPageComponent implements OnInit, OnDestroy {
     private dashboardService: DashboardService
   ) {}
 
-  ngOnInit() {
-    this.sub = this.route.params.subscribe((params) => {
-      this.id = +params['id'];
-      this.travelSub = this.dashboardService
-        .getTravels(this.id)
-        .subscribe((data) => {
-          this.travels = data;
-          setTimeout(() => {
-            this.travels.forEach(({latitude,id,longitude}: any) => {
-                
-              const map = L.map('map' + id).setView(
-                [latitude, longitude],
-                5
-              );
-              L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                maxZoom: 19,
-                attribution:
-                  '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-              }).addTo(map);
-
-              L.marker([latitude, longitude]).addTo(map);
-
-            }, 1000);
-          });
-        });
-    });
-  }
-
-  ngOnDestroy() {
-    this.sub.unsubscribe();
-    this.travelSub.unsubscribe();
-  }
 }

@@ -8,7 +8,7 @@ import {
   Query,
   UseGuards,
 } from '@nestjs/common';
-import { ApiTags, ApiHeader, ApiResponse, ApiQuery } from '@nestjs/swagger';
+import { ApiTags, ApiHeader, ApiResponse, ApiQuery, ApiBody } from '@nestjs/swagger';
 import { ROLES, SignupDTO, UpdateUserDto, SWAGGER, ListQuery } from '@operation-management/common';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { Roles } from '../auth/roles.decorator';
@@ -87,5 +87,22 @@ export class UsersController {
   @ApiResponse(USERS.USERS)
   async list(@Query() userList: ListQuery) {
     return await this.userService.list(userList);
+  }
+
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(ROLES.admin, ROLES.super_user)
+  @Post('search')
+  @ApiResponse(USERS.CREATE_USER)
+  @ApiResponse(ERRORS.ForbiddenResource)
+  @ApiBody({
+    schema: {
+      type:  'object',
+      properties: {
+        searchTerms: {type: 'string'}
+      }
+    }
+  })
+  async search(@Body('searchTerms') searchTerms: string) {    
+    return await this.userService.search(searchTerms);
   }
 }

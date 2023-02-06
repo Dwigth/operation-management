@@ -10,7 +10,7 @@ import {
   Query,
 } from '@nestjs/common';
 import { ApiBody, ApiHeader, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { CreateTeamDto, ListQuery, MoveMemberDto, ROLES, SWAGGER } from '@operation-management/common';
+import { AssocToAccountDto, CreateTeamDto, ListQuery, MoveMemberDto, ROLES, SWAGGER, TeamSearchDto, UpdateTeamDto } from '@operation-management/common';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { Roles } from '../auth/roles.decorator';
 import { RolesGuard } from '../auth/roles.guard';
@@ -81,9 +81,42 @@ export class TeamsController {
 
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(ROLES.admin, ROLES.super_user)
+  @Post('assoc-account')
+  @ApiResponse(ERRORS.ForbiddenResource)
+  async assocToAccount(@Body() assoc: AssocToAccountDto) {
+    return await this.teamsService.assocToAccount(assoc);
+  }
+
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(ROLES.admin, ROLES.super_user)
   @Get('list')
   @ApiResponse(ERRORS.ForbiddenResource)
   async list(@Query() query: ListQuery) {
     return await this.teamsService.list(query);
   }
+
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(ROLES.admin, ROLES.super_user)
+  @Put('')
+  @ApiResponse(ERRORS.ForbiddenResource)
+  async update(@Body() body: UpdateTeamDto) {
+    return await this.teamsService.update(body);
+  }
+
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(ROLES.admin, ROLES.super_user)
+  @Delete('')
+  @ApiResponse(ERRORS.ForbiddenResource)
+  async delete(@Query('teamId') teamId: number) {
+    return await this.teamsService.delete(teamId);
+  }
+
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(ROLES.admin, ROLES.super_user)
+  @Post('search')
+  @ApiResponse(ERRORS.ForbiddenResource)
+  async search(@Body() body: TeamSearchDto) {
+    return await this.teamsService.search(body);
+  }
+
 }
