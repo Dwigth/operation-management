@@ -137,6 +137,7 @@ export class MovementLogFormComponent {
         console.log(result);
         
         this.movementResult.emit(result);
+        this.queryLogsForm.reset();
       });
   }
 }
