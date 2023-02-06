@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Teams, TeamUsers } from '@operation-management/database';
+import { UserListDto } from './user.dto';
 
 export class TeamDto {
   @ApiProperty()
@@ -25,19 +25,27 @@ export class CreateTeamDto extends TeamDto {
   accountId: number;
 }
 
-export class AddMembers {
-  team: Teams;
-  members: TeamMemberDto[];
-}
-
-export class AddMember {
-  toTeam: Teams;
-  member: TeamMemberDto;
-}
-
 export class MoveMemberDto {
   @ApiProperty({ type: () => TeamMemberDto })
   member: TeamMemberDto;
   @ApiProperty()
   teamId: number;
+  @ApiProperty({ required: false })
+  remove: boolean;
+}
+
+export class TeamListDto extends TeamDto {
+  id: number;
+}
+
+export class TeamWithMembers {
+  team: TeamListDto;
+  members: UserListDto[];
+}
+
+export class UpdateTeamDto {
+  @ApiProperty()
+  id: number;
+  @ApiProperty()
+  teamName: string;
 }
