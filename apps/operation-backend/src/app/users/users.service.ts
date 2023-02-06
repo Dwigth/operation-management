@@ -1,7 +1,7 @@
 import { User } from '@operation-management/database';
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { In, Repository } from 'typeorm';
+import { ILike, In, Repository } from 'typeorm';
 import {
   ListQuery,
   UpdateUserDto,
@@ -83,9 +83,18 @@ export class UsersService {
 
   async findMany(ids: number[]) {
     return await this.userRepository.find({
-      select: ['id','name'],
+      select: ['id', 'name'],
       where: {
-        id: In(ids)
+        id: In(ids),
+      },
+    });
+  }
+
+  async search(searchTerms: string) {
+    return await this.userRepository.find({
+      select: ['id','name','email'],
+      where: {
+        name: ILike(`%${searchTerms}%`),
       },
     });
   }
