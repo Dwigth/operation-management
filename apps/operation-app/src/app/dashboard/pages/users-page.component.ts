@@ -1,7 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { UserListDto } from '@operation-management/common';
-import { DashboardService } from '../dashboard.service';
-
+import { Component } from '@angular/core';
 @Component({
   selector: 'operation-management-users-page',
   template: `
@@ -14,14 +11,8 @@ import { DashboardService } from '../dashboard.service';
           <!-- Page title actions -->
           <div class="col-auto ms-auto d-print-none">
             <div class="d-flex">
-              <input
-                type="search"
-                class="form-control d-inline-block w-9 me-3"
-                placeholder="Search user…"
-                spellcheck="false"
-                data-ms-editor="true"
-              />
-              <a href="#" class="btn btn-primary">
+             
+              <a routerLink="create" class="btn btn-primary">
                 <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -48,20 +39,9 @@ import { DashboardService } from '../dashboard.service';
     </div>
     <div class="page-body">
       <div class="container-xl">
-        <operation-management-users-collection
-          [users]="users"
-        ></operation-management-users-collection>
+        <router-outlet></router-outlet>
       </div>
     </div>
   `,
 })
-export class UsersPageComponent implements OnInit {
-  protected users: UserListDto[];
-
-  constructor(private dashboardService: DashboardService) {}
-  ngOnInit(): void {
-    this.dashboardService.getUsers().subscribe((data) => {
-      this.users = data;
-    });
-  }
-}
+export class UsersPageComponent {}
