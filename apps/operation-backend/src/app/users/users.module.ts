@@ -1,4 +1,4 @@
-import { User } from '@operation-management/database';
+import { Roles, User, UserRoles } from '@operation-management/database';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PaswordService } from './password/password.service';
@@ -8,7 +8,7 @@ import { UsersController } from './users.controller';
 
 @Module({
   imports:[
-    TypeOrmModule.forFeature([User])
+    TypeOrmModule.forFeature([User, UserRoles, Roles,])
   ],
   providers: [
     UsersService,
