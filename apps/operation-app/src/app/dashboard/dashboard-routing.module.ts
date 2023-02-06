@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CanActivateDashboard } from './dashboard.guard';
 import { DashboardMainComponent } from './dashboard.component';
-import { CategoryPageComponent } from './pages/category-page.component';
 import { MyAccountPageComponent } from './pages/my-account-page.component';
 import { UsersPageComponent } from './pages/users-page.component';
 import { AccountsPageComponent } from './pages/accounts-page.component';
@@ -12,6 +11,9 @@ import { TeamDetailsComponent } from './components/teams/team-details.component'
 import { AccountDetailsComponent } from './components/accounts/account-details.component';
 import { TeamListComponent } from './components/teams/team-list.component';
 import { AccountsListComponent } from './components/accounts/account-list.component';
+import { UsersListComponent } from './components/users/user-list.component';
+import { UserDetailComponent } from './components/users/user-detail.component';
+import { CreateUserComponent } from './components/users/new-user.component';
 
 const routes: Routes = [
   {
@@ -26,11 +28,20 @@ const routes: Routes = [
       {
         path: 'users',
         component: UsersPageComponent,
-        // children: [
-        //   {
-        //     path: ':id',
-        //   }
-        // ]
+        children: [
+          {
+            path: '',
+            component: UsersListComponent
+          },
+          {
+            path: 'details/:id',
+            component: UserDetailComponent
+          },
+          {
+            path: 'create',
+            component: CreateUserComponent,
+          }
+        ]
       },
       {
         path: 'teams',

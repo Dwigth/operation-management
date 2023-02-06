@@ -27,6 +27,9 @@ import { AccountsService } from './components/accounts/accounts.service';
 import { UserService } from './components/users/user.service';
 import { FindUsersComponent } from './components/users/find-users.component';
 import { FindAccountComponent } from './components/accounts/find-account.component';
+import { UsersListComponent } from './components/users/user-list.component';
+import { UserDetailComponent } from './components/users/user-detail.component';
+import { CreateUserComponent } from './components/users/new-user.component';
 
 @NgModule({
   imports: [
@@ -57,6 +60,9 @@ import { FindAccountComponent } from './components/accounts/find-account.compone
     AccountsListComponent,
     FindUsersComponent,
     FindAccountComponent,
+    UsersListComponent,
+    UserDetailComponent,
+    CreateUserComponent,
   ],
   providers: [DashboardService, TeamsService, AccountsService, UserService],
 })
