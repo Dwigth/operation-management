@@ -57,7 +57,7 @@ const routes: Routes = [
             component: TeamListComponent
           },
           {
-            path:':id',
+            path:'details/:id',
             component: TeamDetailsComponent,
           },
         ]
