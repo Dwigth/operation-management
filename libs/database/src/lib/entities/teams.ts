@@ -1,9 +1,11 @@
 import {
   Column,
+  DeleteDateColumn,
   Entity,
   Index,
   OneToMany,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from "typeorm";
 import { AccountTeams } from "./account-teams";
 import { TeamUsers } from "./team-users";
@@ -26,4 +28,15 @@ export class Teams {
 
   @OneToMany(() => TeamUsers, (teamUsers) => teamUsers.team)
   teamUsers: TeamUsers[];
+
+  @UpdateDateColumn({
+    name:'updated_date'
+  })
+  updated: Date;
+
+  @DeleteDateColumn({
+    name: 'deleted_date'
+  })
+  deletedAt: Date;
+
 }
