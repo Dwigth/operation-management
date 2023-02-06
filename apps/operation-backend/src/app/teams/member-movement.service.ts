@@ -35,8 +35,8 @@ export class MemberMovementService {
 
   /**
    * Can change to a Team or to null
-   * @param MoveMember 
-   * @returns 
+   * @param MoveMember
+   * @returns
    */
   async moveMember({ member, toTeam }: MoveMember): Promise<TeamUsers> {
     const userMovementLog = new UserTeamChangesLogs();
@@ -49,7 +49,8 @@ export class MemberMovementService {
       relations: ['team', 'user'],
     });
 
-    const user = fromTeamUserDb.user;
+    const user =
+      fromTeamUserDb?.user ?? (await this.usersService.findOneById(member.id));
     if (!user) {
       this.logger.info(
         LOGS.notFoundMessage({
@@ -61,13 +62,13 @@ export class MemberMovementService {
       throw new NotFoundException();
     }
 
-    const { team: previousTeam } = fromTeamUserDb;
+    const { team: previousTeam } = fromTeamUserDb ?? { team: null };
 
     teamUser.team = null;
     teamUser.user = user;
     userTeamDates.startDate = new Date().toISOString();
     userTeamDates.finishDate = new Date().toISOString();
-    
+
     if (toTeam) {
       if (previousTeam?.id === toTeam.id) {
         this.logger.info('USER CANT CHANGE BECAUSE IS IN THE SAME TEAM');
