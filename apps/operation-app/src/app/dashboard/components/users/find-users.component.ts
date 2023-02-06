@@ -11,7 +11,7 @@ import { UserService } from './user.service';
   styles: ['.list-group-item { cursor: pointer }'],
   template: `
     <div class="mb-3">
-      <label class="form-label">Buscar usuario</label>
+      <label class="form-label">Search user</label>
       <div class="input-icon mb-3">
         <input
           [formControl]="userSearch"
@@ -27,7 +27,7 @@ import { UserService } from './user.service';
         </span>
         <ul *ngIf="searchedUsers.length > 0" class="list-group ">
           <li
-            (click)="selectClient(client)"
+            (click)="selectUser(client)"
             *ngFor="let client of searchedUsers"
             class="list-group-item"
           >
@@ -58,13 +58,7 @@ export class FindUsersComponent implements OnDestroy {
       this.clientSearchSubscription.unsubscribe();
   }
 
-  createClient() {
-    this.client.emit(null);
-    this.searchedUsers = [];
-    this.userSearch.setValue('');
-  }
-
-  selectClient(client: UserListDto): void {
+  selectUser(client: UserListDto): void {
     this.selectedUser = client;
     this.userSearch.setValue(this.selectedUser.name);
     this.searchedUsers = [];
