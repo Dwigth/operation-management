@@ -29,7 +29,7 @@ export class MoveMemberDto {
   @ApiProperty({ type: () => TeamMemberDto })
   member: TeamMemberDto;
   @ApiProperty()
-  teamId: number;
+  teamId: number | null;
   @ApiProperty({ required: false })
   remove: boolean;
 }
@@ -48,4 +48,13 @@ export class UpdateTeamDto {
   id: number;
   @ApiProperty()
   teamName: string;
+}
+
+export class AssocToAccountDto {
+  @ApiProperty()
+  teamId: number;
+  @ApiProperty()
+  accountId: number;
+  @ApiProperty({required: false})
+  remove: boolean;
 }
