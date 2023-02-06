@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {
   UpdateUserProfileInfo,
-  UserListDto,
   UserRetrieveDto,
 } from '@operation-management/common';
 import { formatUrl, setTravelHeaders } from '../auth/http';
@@ -30,13 +29,5 @@ export class DashboardService {
     );
   }
 
-  getUsers() {
-    return this.http.get<UserListDto[]>(
-      formatUrl({ version: 1, path: 'users/list' }),
-      {
-        ...setTravelHeaders(),
-      }
-    );
-  }
 
 }
