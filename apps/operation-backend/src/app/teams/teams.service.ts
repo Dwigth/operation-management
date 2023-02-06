@@ -5,6 +5,7 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import {
+  AssocToAccountDto,
   CreateTeamDto,
   ListQuery,
   TeamListDto,
@@ -105,5 +106,52 @@ export class TeamsService {
       };
     }
     throw new ConflictException();
+  }
+
+  async assocToAccount({ accountId, teamId, remove }: AssocToAccountDto) {
+    const account = await this.accountService.getOne(accountId);
+    const team = await this.teamsRepo.findOneBy({ id: teamId });
+
+    if (!account || !team) {
+      throw new NotFoundException();
+    }
+
+    // get last relation if has one softdelete
+    const lastAccountTeamHad = await this.accountTeamsRepo.findOneBy({
+      team: Equal(team.id),
+    });
+
+    if(lastAccountTeamHad) {
+      await this.accountTeamsRepo.softDelete(lastAccountTeamHad.id);
+    }
+
+    const accountTeam = await this.accountTeamsRepo.findOneBy({
+      account: Equal(account.id),
+      team: Equal(team.id),
+    });
+
+    if (remove) {
+      await this.accountTeamsRepo.softDelete(accountTeam.id);
+      return {
+        message: 'Team has been deassociated with this account',
+        removed: new Date(),
+      };
+    }
+
+    if (accountTeam) {
+      return {
+        message: 'Relation already created',
+      };
+    }
+
+    await this.accountTeamsRepo.save({
+      account,
+      team,
+    });
+
+    return {
+      message: 'Team has been associated with the team successfully',
+      associated: new Date(),
+    };
   }
 }

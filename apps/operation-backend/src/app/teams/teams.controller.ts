@@ -10,7 +10,7 @@ import {
   Query,
 } from '@nestjs/common';
 import { ApiBody, ApiHeader, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { CreateTeamDto, ListQuery, MoveMemberDto, ROLES, SWAGGER, UpdateTeamDto } from '@operation-management/common';
+import { AssocToAccountDto, CreateTeamDto, ListQuery, MoveMemberDto, ROLES, SWAGGER, UpdateTeamDto } from '@operation-management/common';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { Roles } from '../auth/roles.decorator';
 import { RolesGuard } from '../auth/roles.guard';
@@ -77,6 +77,14 @@ export class TeamsController {
   @ApiResponse(ERRORS.ForbiddenResource)
   async move(@Body() moveMember: MoveMemberDto) {
     return await this.membersService.changeMemberOfTeam(moveMember);
+  }
+
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(ROLES.admin, ROLES.super_user)
+  @Post('assoc-account')
+  @ApiResponse(ERRORS.ForbiddenResource)
+  async assocToAccount(@Body() assoc: AssocToAccountDto) {
+    return await this.teamsService.assocToAccount(assoc);
   }
 
   @UseGuards(JwtAuthGuard, RolesGuard)

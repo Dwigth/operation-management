@@ -27,4 +27,16 @@ export class AccountsService {
           }
         );
       }
+
+      search(searchTerms: string) {
+        return this.http.post<AccountRetrieveDto[]>(
+          formatUrl({ version: 1, path: 'accounts/search' }),
+          {
+            searchTerms
+          },
+          {
+            ...setTravelHeaders(),
+          }
+        );
+      }
 }
