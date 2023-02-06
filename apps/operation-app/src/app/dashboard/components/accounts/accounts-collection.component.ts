@@ -16,7 +16,7 @@ import { AccountRetrieveDto } from '@operation-management/common';
           </div>
           <div class="d-flex">
             <a [routerLink]="['/dashboard/teams/account/'+account.id]"  class="card-btn"> Teams </a>
-            <a [routerLink]="['/dashboard/accounts/'+account.id]"  class="card-btn"> Details </a>
+            <a [routerLink]="['/dashboard/accounts/details/'+account.id]"  class="card-btn"> Details </a>
           </div>
         </div>
       </div>

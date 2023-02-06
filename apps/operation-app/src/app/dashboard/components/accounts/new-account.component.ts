@@ -31,7 +31,7 @@ import { AccountsService } from './accounts.service';
             <input
               type="text"
               class="form-control"
-              formControlName="operationalManagerName"
+              formControlName="operationManagerName"
             />
           </div>
           <button

@@ -12,14 +12,7 @@ import { Component, } from '@angular/core';
           <!-- Page title actions -->
           <div class="col-auto ms-auto d-print-none">
             <div class="d-flex">
-              <input
-                type="search"
-                class="form-control d-inline-block w-9 me-3"
-                placeholder="Search account…"
-                spellcheck="false"
-                data-ms-editor="true"
-              />
-              <a href="#" class="btn btn-primary">
+              <a routerLink="create" class="btn btn-primary">
                 <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
