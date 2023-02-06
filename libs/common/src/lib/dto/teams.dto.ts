@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { AccountRetrieveDto } from './accounts.dto';
 import { UserListDto } from './user.dto';
 
 export class TeamDto {
@@ -38,8 +39,14 @@ export class TeamListDto extends TeamDto {
   id: number;
 }
 
+export class TeamWithAccountsDto extends TeamListDto{
+  accountTeams: Array<{
+    account: AccountRetrieveDto;
+  }>;
+}
+
 export class TeamWithMembers {
-  team: TeamListDto;
+  team: TeamWithAccountsDto;
   members: UserListDto[];
 }
 
