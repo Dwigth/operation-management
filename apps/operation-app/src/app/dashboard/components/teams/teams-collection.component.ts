@@ -15,7 +15,7 @@ import { TeamListDto } from "@operation-management/common";
             </div>
           </div>
           <div class="d-flex">
-            <a [routerLink]="['/dashboard/teams/'+team.id]"  class="card-btn"> Details </a>
+            <a [routerLink]="['/dashboard/teams/details/'+team.id]"  class="card-btn"> Details </a>
           </div>
         </div>
       </div>

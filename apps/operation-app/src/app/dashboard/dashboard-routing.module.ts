@@ -15,6 +15,7 @@ import { UsersListComponent } from './components/users/user-list.component';
 import { UserDetailComponent } from './components/users/user-detail.component';
 import { CreateUserComponent } from './components/users/new-user.component';
 import { CreateAccountComponent } from './components/accounts/new-account.component';
+import { CreateTeamComponent } from './components/teams/new-team.component';
 
 const routes: Routes = [
   {
@@ -60,6 +61,10 @@ const routes: Routes = [
             path:'details/:id',
             component: TeamDetailsComponent,
           },
+          {
+            path: 'create',
+            component: CreateTeamComponent
+          }
         ]
       },
       {

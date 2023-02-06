@@ -7,7 +7,7 @@ import { AccountsService } from './accounts.service';
   template: `
     <div class="card">
       <div class="card-body">
-        <div class="card-title">User details</div>
+        <div class="card-title">Create Account</div>
         <form [formGroup]="createAccountFormGroup">
           <div class="mb-3">
             <label class="form-label">Account Name</label>

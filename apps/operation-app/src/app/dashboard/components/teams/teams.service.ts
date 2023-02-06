@@ -18,7 +18,7 @@ export class TeamsService {
 
   createTeam(data: CreateTeamDto) {
     return this.http.post<{ created: Date }>(
-      formatUrl({ version: 1, path: 'teams/list' }),
+      formatUrl({ version: 1, path: 'teams' }),
       {
         ...data,
       },

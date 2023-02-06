@@ -31,6 +31,8 @@ import { UsersListComponent } from './components/users/user-list.component';
 import { UserDetailComponent } from './components/users/user-detail.component';
 import { CreateUserComponent } from './components/users/new-user.component';
 import { CreateAccountComponent } from './components/accounts/new-account.component';
+import { CreateTeamComponent } from './components/teams/new-team.component';
+import { MembersComponent } from './components/teams/members.component';
 
 @NgModule({
   imports: [
@@ -65,6 +67,8 @@ import { CreateAccountComponent } from './components/accounts/new-account.compon
     UserDetailComponent,
     CreateUserComponent,
     CreateAccountComponent,
+    CreateTeamComponent,
+    MembersComponent,
   ],
   providers: [DashboardService, TeamsService, AccountsService, UserService],
 })
