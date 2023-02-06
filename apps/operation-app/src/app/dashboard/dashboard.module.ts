@@ -30,6 +30,7 @@ import { FindAccountComponent } from './components/accounts/find-account.compone
 import { UsersListComponent } from './components/users/user-list.component';
 import { UserDetailComponent } from './components/users/user-detail.component';
 import { CreateUserComponent } from './components/users/new-user.component';
+import { CreateAccountComponent } from './components/accounts/new-account.component';
 
 @NgModule({
   imports: [
@@ -63,6 +64,7 @@ import { CreateUserComponent } from './components/users/new-user.component';
     UsersListComponent,
     UserDetailComponent,
     CreateUserComponent,
+    CreateAccountComponent,
   ],
   providers: [DashboardService, TeamsService, AccountsService, UserService],
 })

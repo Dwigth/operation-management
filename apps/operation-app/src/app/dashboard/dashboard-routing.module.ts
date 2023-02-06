@@ -14,6 +14,7 @@ import { AccountsListComponent } from './components/accounts/account-list.compon
 import { UsersListComponent } from './components/users/user-list.component';
 import { UserDetailComponent } from './components/users/user-detail.component';
 import { CreateUserComponent } from './components/users/new-user.component';
+import { CreateAccountComponent } from './components/accounts/new-account.component';
 
 const routes: Routes = [
   {
@@ -70,8 +71,12 @@ const routes: Routes = [
             component: AccountsListComponent
           },
           {
-            path: ':id',
+            path: 'details/:id',
             component: AccountDetailsComponent,
+          },
+          {
+            path: 'create',
+            component: CreateAccountComponent,
           }
         ]
       },
