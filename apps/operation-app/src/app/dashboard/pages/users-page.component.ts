@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { UserListDto } from '@operation-management/common';
+import { DashboardService } from '../dashboard.service';
 
 @Component({
   selector: 'operation-management-users-page',
@@ -46,84 +48,20 @@ import { Component } from '@angular/core';
     </div>
     <div class="page-body">
       <div class="container-xl">
-        <div class="row row-cards">
-          <div class="col-md-6 col-lg-3">
-            <div class="card">
-              <div class="card-body p-4 text-center">
-                <h3 class="m-0 mb-1"><a class="cursor-pointer">user_name</a></h3>
-                <div class="text-muted">user_email</div>
-                <div class="mt-3">
-                  <span class="badge bg-purple-lt">Owner</span>
-                </div>
-              </div>
-              <div class="d-flex">
-                <a  class="card-btn cursor-pointer"
-                  >
-                  Update</a
-                >
-                <a  class="card-btn cursor-pointer"
-                  >
-                  Delete</a
-                >
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="d-flex mt-4">
-          <ul class="pagination ms-auto">
-            <li class="page-item disabled">
-              <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
-                <!-- Download SVG icon from http://tabler-icons.io/i/chevron-left -->
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="icon"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  stroke-width="2"
-                  stroke="currentColor"
-                  fill="none"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                  <path d="M15 6l-6 6l6 6"></path>
-                </svg>
-                prev
-              </a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item active">
-              <a class="page-link" href="#">2</a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" href="#">4</a></li>
-            <li class="page-item"><a class="page-link" href="#">5</a></li>
-            <li class="page-item">
-              <a class="page-link" href="#">
-                next
-                <!-- Download SVG icon from http://tabler-icons.io/i/chevron-right -->
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="icon"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  stroke-width="2"
-                  stroke="currentColor"
-                  fill="none"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                  <path d="M9 6l6 6l-6 6"></path>
-                </svg>
-              </a>
-            </li>
-          </ul>
-        </div>
+        <operation-management-users-collection
+          [users]="users"
+        ></operation-management-users-collection>
       </div>
     </div>
   `,
 })
-export class UsersPageComponent {}
+export class UsersPageComponent implements OnInit {
+  protected users: UserListDto[];
+
+  constructor(private dashboardService: DashboardService) {}
+  ngOnInit(): void {
+    this.dashboardService.getUsers().subscribe((data) => {
+      this.users = data;
+    });
+  }
+}
