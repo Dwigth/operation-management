@@ -10,7 +10,7 @@ import {
   Query,
 } from '@nestjs/common';
 import { ApiBody, ApiHeader, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { CreateTeamDto, ListQuery, MoveMemberDto, ROLES, SWAGGER } from '@operation-management/common';
+import { CreateTeamDto, ListQuery, MoveMemberDto, ROLES, SWAGGER, UpdateTeamDto } from '@operation-management/common';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { Roles } from '../auth/roles.decorator';
 import { RolesGuard } from '../auth/roles.guard';
@@ -86,4 +86,21 @@ export class TeamsController {
   async list(@Query() query: ListQuery) {
     return await this.teamsService.list(query);
   }
+
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(ROLES.admin, ROLES.super_user)
+  @Put('')
+  @ApiResponse(ERRORS.ForbiddenResource)
+  async update(@Body() body: UpdateTeamDto) {
+    return await this.teamsService.update(body);
+  }
+
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(ROLES.admin, ROLES.super_user)
+  @Delete('')
+  @ApiResponse(ERRORS.ForbiddenResource)
+  async delete(@Query('teamId') teamId: number) {
+    return await this.teamsService.delete(teamId);
+  }
+
 }
