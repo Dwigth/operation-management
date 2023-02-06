@@ -26,6 +26,7 @@ import { TeamsService } from './components/teams/teams.service';
 import { AccountsService } from './components/accounts/accounts.service';
 import { UserService } from './components/users/user.service';
 import { FindUsersComponent } from './components/users/find-users.component';
+import { FindAccountComponent } from './components/accounts/find-account.component';
 
 @NgModule({
   imports: [
@@ -55,6 +56,7 @@ import { FindUsersComponent } from './components/users/find-users.component';
     AccountDetailsComponent,
     AccountsListComponent,
     FindUsersComponent,
+    FindAccountComponent,
   ],
   providers: [DashboardService, TeamsService, AccountsService, UserService],
 })
