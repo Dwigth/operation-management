@@ -17,10 +17,21 @@ export class MovementLogsService {
   ) {}
 
   async queryLog({ member, teamId }: MovementLogQueryDto) {
+    console.log(this.movementLogWhere({ member, teamId }));
+
     const result = await this.teamUsersRepo.find({
-      relations: ['userTeamChangesLogsFrom', 'userTeamChangesLogsTo', 'userDates'],
+      relations: [
+        'userTeamChangesLogsFrom.fromTeam.team',
+        'userTeamChangesLogsFrom.toTeam.team',
+        'userTeamChangesLogsTo.fromTeam.team',
+        'userTeamChangesLogsTo.toTeam.team',
+        'userDates',
+      ],
       where: this.movementLogWhere({ member, teamId }),
       withDeleted: true,
+      order: {
+        id: 'desc'
+      }
     });
     return result;
   }
@@ -34,7 +45,7 @@ export class MovementLogsService {
     }
     if (member.memberName) {
       where.user = {
-        name: ILike(member?.memberName),
+        name: ILike(`%${member?.memberName}%`),
       };
     }
     if (member.finishDate) {
