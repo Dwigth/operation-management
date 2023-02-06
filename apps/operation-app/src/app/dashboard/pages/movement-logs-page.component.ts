@@ -31,10 +31,7 @@ import { createLitepicker } from '../components/movement-logs/litepicker';
     </div>
   `,
 })
-export class MovementLogsPageComponent implements AfterViewInit {
+export class MovementLogsPageComponent {
   results: MovementLogResult[]
-  ngAfterViewInit(): void {
-    createLitepicker('datepicker-start-date');
-    createLitepicker('datepicker-finish-date');
-  }
+  
 }
