@@ -19,3 +19,27 @@ Run `npx nx connect-to-nx-cloud` to enable [remote caching](https://nx.app) and 
 ## Further help
 
 Visit the [Nx Documentation](https://nx.dev) to learn more.
+
+
+## Run application
+
+Create a .env file in the root of the project with this content
+```
+DB_HOST=''
+DB_PORT=0
+DB_USERNAME=''
+DB_PASSWORD= ''
+DB_NAME= ''
+SALT= ''
+JWT_SECRET='MY_SECRET_KEY'
+```
+SALT is the one that has to be fixed 80b4cf4b376387bdc231947e8098336a
+
+```
+npm install
+docker compose up
+npx nx run migration-runner:serve
+npx nx run operation-app:serve
+npx nx run operation-backend:serve
+
+```
