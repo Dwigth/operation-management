@@ -27,9 +27,9 @@ export class PaswordService implements PaswordManagement {
         return true;
     }
 
-    createPassword({ user, password }: PasswordProps): Promise<User> {
+    createPassword({ user, password }: PasswordProps): Promise<User | Error> {
         if (!this.validateProps({ user, password })) {
-            Promise.resolve(Error("Not valid properties"))
+            return Promise.reject(new Error("Not valid properties"))
         }
         user.passwordHash = crypto.pbkdf2Sync(password, this.salt,
             this.iterations, this.keylens, `sha512`).toString(`hex`);
