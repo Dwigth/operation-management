@@ -28,7 +28,9 @@ export class ProfileService {
   ) {}
 
   async getMyInfo() {
-    const { user: { userId} } = this.request;
+    const {
+      user: { userId },
+    } = this.request;
     return await this.userService.findOneById(userId);
   }
 
@@ -40,7 +42,9 @@ export class ProfileService {
     password,
     technicalKnowledge,
   }: UpdateUserProfileInfo) {
-    const { user: { userId} } = this.request;
+    const {
+      user: { userId },
+    } = this.request;
     let dbUser = await this.userRepo.findOneBy({ id: userId });
     dbUser.setName(name);
     dbUser.setEmail(email);
@@ -48,10 +52,14 @@ export class ProfileService {
     dbUser.setCvLink(cvLink);
     dbUser.setTechnicalKnowledge(technicalKnowledge);
     if (password) {
-      dbUser = await this.passwordService.createPassword({
-        user: dbUser,
-        password,
-      });
+      try {
+        dbUser = <User>await this.passwordService.createPassword({
+          user: dbUser,
+          password,
+        });
+      } catch (error) {
+        throw new ConflictException(error.message);
+      }
     }
     const { affected } = await this.userRepo.update(userId, dbUser);
     if (affected > 0) {
