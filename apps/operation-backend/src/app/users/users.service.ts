@@ -46,7 +46,7 @@ export class UsersService {
   }: UpdateUserDto): Promise<User | undefined> {
     const dbUser = await this.userRepository.findOneByOrFail({ id });
     const { passwordHash: newPassword } =
-      await this.passwordService.createPassword({ user: dbUser, password });
+      <User>(await this.passwordService.createPassword({ user: dbUser, password }));
 
     dbUser.setEmail(email);
     dbUser.setName(name);

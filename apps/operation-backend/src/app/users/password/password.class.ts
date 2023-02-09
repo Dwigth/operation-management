@@ -7,6 +7,6 @@ export interface PasswordProps {
 }
 
 export abstract class PaswordManagement {
-    abstract createPassword(passwordProps: PasswordProps): Promise<User>;
+    abstract createPassword(passwordProps: PasswordProps): Promise<User | Error>;
     abstract validatePassword(passwordProps: PasswordProps): Promise<boolean>;
 }

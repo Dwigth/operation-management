@@ -12,5 +12,6 @@ export default {
     '^.+\\.[tj]s$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
+  collectCoverage: true,
   coverageDirectory: '../../coverage/apps/operation-backend',
 };
