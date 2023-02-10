@@ -28,10 +28,12 @@ export class AuthService {
     return null;
   }
 
-  async login(user: User): Promise<{ accessToken: string; }> {
+  async login(user: User): Promise<{ accessToken: string; renderOptions: boolean; }> {
+    const renderOptions = (user.userRoles.filter(userRole => userRole.role.id < 3)[0]) ? true : false;     
     const payload = { email: user.email, sub: user.id };
     return {
       accessToken: this.jwtService.sign(payload),
+      renderOptions
     };
   }
 

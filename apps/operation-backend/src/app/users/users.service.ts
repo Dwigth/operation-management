@@ -22,6 +22,7 @@ export class UsersService {
   async findOne(email: string): Promise<User | undefined> {
     return await this.userRepository.findOneOrFail({
       where: { email },
+      relations: ['userRoles.role']
     });
   }
 
