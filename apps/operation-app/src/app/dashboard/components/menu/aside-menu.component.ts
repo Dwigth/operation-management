@@ -89,6 +89,7 @@ export class AsideMenuComponent {
   protected logout() {
     if (confirm('Are you sure you want to logout?')) {
       localStorage.clear();
+      location.reload();
     }
   }
 }
