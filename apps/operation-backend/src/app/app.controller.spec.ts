@@ -2,8 +2,6 @@ import { JwtModule, JwtService } from '@nestjs/jwt';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import {
-  MockType,
-  repositoryMockFactory,
   userFactory,
 } from '@operation-management/common';
 import { Roles, User, UserRoles } from '@operation-management/database';
@@ -18,6 +16,23 @@ import { ConfigModule } from '@nestjs/config';
 import { Repository } from 'typeorm';
 import { PassportModule } from '@nestjs/passport';
 
+export type MockType<T> = {
+  [P in keyof T]?: jest.Mock<unknown>;
+};
+
+export const repositoryMockFactory: () => MockType<Repository<any>> = jest.fn(
+  () => ({
+    findOne: jest.fn((entity) => entity),
+    findOneOrFail: jest.fn((entity) => entity),
+    findOneByOrFail: jest.fn((entity) => entity),
+    save: jest.fn((entity) => entity),
+    softDelete: jest.fn((entity) => entity),
+    find: jest.fn((entity) => entity),
+    create: jest.fn((entity) => entity),
+    findBy: jest.fn((entity) => entity),
+    findOneBy: jest.fn((entity) => entity),
+  })
+);
 describe('App Controller', () => {
   let app: TestingModule;
   let authService: AuthService;

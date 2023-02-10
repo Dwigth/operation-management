@@ -2,13 +2,12 @@ import { ConfigModule } from '@nestjs/config';
 import { TestingModule, Test } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import {
-  MockType,
-  repositoryMockFactory,
   SignupDTO,
   SignupUserCreatedDTO,
 } from '@operation-management/common';
 import { User, UserRoles, Roles } from '@operation-management/database';
 import { Repository } from 'typeorm';
+import { MockType, repositoryMockFactory } from '../../app.controller.spec';
 import { PaswordService } from '../password/password.service';
 import { RegisterService } from './register.service';
 

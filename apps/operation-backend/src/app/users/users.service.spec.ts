@@ -9,7 +9,7 @@ import { ConfigModule } from '@nestjs/config';
 import { Repository } from 'typeorm';
 import { NotFoundException } from '@nestjs/common';
 import * as winston from 'winston';
-import { MockType, repositoryMockFactory } from '@operation-management/common';
+import { MockType, repositoryMockFactory } from '../app.controller.spec';
 
 describe('UserService', () => {
   let app: TestingModule;
