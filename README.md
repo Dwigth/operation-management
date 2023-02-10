@@ -22,6 +22,13 @@ Visit the [Nx Documentation](https://nx.dev) to learn more.
 
 
 ## Run application
+Example DB c    redentials are 
+```
+DB_USER: postgres
+DB_PASSWORD: postgrespw
+
+```
+You can chanche this by editing the file docker-compose.yml
 
 Create a .env file in the root of the project with this content
 ```
