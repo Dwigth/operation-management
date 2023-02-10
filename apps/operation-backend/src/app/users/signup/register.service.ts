@@ -23,6 +23,7 @@ export class RegisterService {
     email,
     password,
     name,
+    roleId,
   }: SignupDTO): Promise<SignupUserCreatedDTO> {
     this.logger.debug(email, password);
     const user = this.userRepository.create({
@@ -34,7 +35,7 @@ export class RegisterService {
       password,
     });
     this.logger.debug({ ...userInstance });
-    const role = await this.rolesRepo.findOneBy({ id: 3 });
+    const role = await this.rolesRepo.findOneBy({ id: roleId });
     const createdUser = await this.userRepository.save(userInstance);
     await this.userRolesRepo.save({
         role,

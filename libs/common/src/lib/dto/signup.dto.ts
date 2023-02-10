@@ -7,6 +7,8 @@ export class SignupDTO {
     email: string;
     @ApiProperty()
     password: string;
+    @ApiProperty()
+    roleId: number;
 }
 
 export class SignupUserCreatedDTO {
