@@ -32,7 +32,7 @@ import { DashboardService } from '../../dashboard.service';
                 }"
               ></operation-management-menu-item>
             </li>
-            <li class="nav-item">
+            <li *ngIf="shouldRenderAdminOptions" class="nav-item">
               <operation-management-menu-item
                 [item]="{
                   label: 'Users',
@@ -41,7 +41,7 @@ import { DashboardService } from '../../dashboard.service';
                 }"
               ></operation-management-menu-item>
             </li>
-            <li class="nav-item">
+            <li *ngIf="shouldRenderAdminOptions" class="nav-item">
               <operation-management-menu-item
                 [item]="{
                   label: 'Accounts',
@@ -50,7 +50,7 @@ import { DashboardService } from '../../dashboard.service';
                 }"
               ></operation-management-menu-item>
             </li>
-            <li class="nav-item">
+            <li *ngIf="shouldRenderAdminOptions" class="nav-item">
               <operation-management-menu-item
                 [item]="{
                   label: 'Teams',
@@ -59,7 +59,7 @@ import { DashboardService } from '../../dashboard.service';
                 }"
               ></operation-management-menu-item>
             </li>
-            <li class="nav-item">
+            <li *ngIf="shouldRenderAdminOptions" class="nav-item">
               <operation-management-menu-item
                 [item]="{
                   label: 'Movement Logs',
@@ -85,7 +85,12 @@ import { DashboardService } from '../../dashboard.service';
   `,
 })
 export class AsideMenuComponent {
-  constructor(protected dashboardService: DashboardService) {}
+  protected shouldRenderAdminOptions: boolean;
+
+  constructor(protected dashboardService: DashboardService) {
+    this.shouldRenderAdminOptions = <boolean>(JSON.parse(<string>localStorage.getItem('shouldRender')));    
+  }
+
   protected logout() {
     if (confirm('Are you sure you want to logout?')) {
       localStorage.clear();

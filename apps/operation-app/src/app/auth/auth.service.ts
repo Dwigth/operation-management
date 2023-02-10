@@ -9,7 +9,7 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   login(data: any) {
-    return this.http.post<{ accessToken: string }>(
+    return this.http.post<{ accessToken: string; renderOptions: boolean; }>(
       formatUrl({ version: 1, path: 'auth/login' }),
       data
     );

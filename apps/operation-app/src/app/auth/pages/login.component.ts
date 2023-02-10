@@ -36,6 +36,7 @@ export class LoginComponent {
         next: (data) => {
           if (data.accessToken) {
             localStorage.setItem('access', data.accessToken);
+            localStorage.setItem('shouldRender', JSON.stringify(data.renderOptions));
             this.router.navigateByUrl('dashboard');
           }
         },
