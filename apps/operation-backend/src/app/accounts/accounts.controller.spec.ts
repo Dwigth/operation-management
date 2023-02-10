@@ -2,8 +2,6 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import {
   accountFactory,
-  MockType,
-  repositoryMockFactory,
   UpdateAccountDto,
 } from '@operation-management/common';
 import { Accounts, User } from '@operation-management/database';
@@ -13,6 +11,7 @@ import { WinstonModule } from 'nest-winston';
 import * as winston from 'winston';
 import { Repository } from 'typeorm';
 import { NotFoundException } from '@nestjs/common';
+import { MockType, repositoryMockFactory } from '../app.controller.spec';
 
 describe('AccountsController', () => {
   let app: TestingModule;
